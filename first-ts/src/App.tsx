@@ -1,24 +1,21 @@
 import React from 'react';
 import './App.css';
 import Login from './Login/Login';
-import { AppBar, Button, Container, IconButton, Stack, Toolbar, Typography, useTheme } from '@mui/material';
-import { Link } from "react-router-dom";
+import { AppBar, Button, Container, IconButton, Stack, Toolbar, useTheme } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {
-  Routes,
-  Route
-} from "react-router-dom";
 import Home from './Home/Home';
+import ToDoList from './ToDoList/ToDoList';
 
 enum PAGE {
   HOME = "HOME",
-  LOGIN = "LOGIN"
+  LOGIN = "LOGIN",
+  TO_DO_LIST = "TO_DO_LIST"
 }
 
 function App() {
   const theme = useTheme()
   const [currentPage, setCurrentPage] = React.useState<PAGE>(PAGE.HOME)
-  console.log(currentPage)
+  
   return (
     <div style={{ backgroundColor: theme.palette.primary.light }}>
       <AppBar position="static">
@@ -37,6 +34,9 @@ function App() {
               <Button color="inherit" onClick={() => {
                 setCurrentPage(PAGE.LOGIN)
               }}>Login</Button>
+              <Button color="inherit" onClick={() => {
+                setCurrentPage(PAGE.TO_DO_LIST)
+              }}>To Do List</Button>
             </div>
           </Stack>
         </Toolbar>
@@ -49,6 +49,7 @@ function App() {
 
         {currentPage === PAGE.HOME && <Home />}
         {currentPage === PAGE.LOGIN && <Login />}
+        {currentPage === PAGE.TO_DO_LIST && <ToDoList />}
 
       </Container>
     </div>
