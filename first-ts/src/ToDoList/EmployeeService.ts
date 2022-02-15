@@ -17,10 +17,10 @@ class EmployeeService {
         localStorage.lstEmployees = JSON.stringify(lstEmployees)
     }
 
-    static update(EmployeeID: number, objEmployee: IEmployee) {
+    static update(EmployeeID: number, objEmployee: Partial<IEmployee>) {
         let lstEmployees = this.list()
-        let existingEmployeeIndex: number = lstEmployees.findIndex((item:any)=>item.EmployeeID === EmployeeID)
-        if (!existingEmployeeIndex) { // Employee not found. 
+        let existingEmployeeIndex: number = lstEmployees.findIndex((item: any) => item.EmployeeID === EmployeeID)
+        if (existingEmployeeIndex === -1) { // Employee not found. 
             throw new Error('Employee not found with give id. ')
         }
 
@@ -34,8 +34,8 @@ class EmployeeService {
 
     static delete(EmployeeID: number) {
         let lstEmployees = this.list()
-        let existingEmployeeIndex: number = lstEmployees.findIndex((item:any)=>item.EmployeeID === EmployeeID)
-        if (!existingEmployeeIndex) { // Employee not found. 
+        let existingEmployeeIndex: number = lstEmployees.findIndex((item: any) => item.EmployeeID === EmployeeID)
+        if (existingEmployeeIndex === -1) { // Employee not found. 
             throw new Error('Employee not found with give id. ')
         }
         lstEmployees.splice(existingEmployeeIndex, 1);
