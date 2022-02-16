@@ -1,5 +1,6 @@
 import { Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Paper, Select, Switch, TextField, Typography } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router'
 import { PAGE } from '../App'
 import EmployeeService, { IEmployee } from './EmployeeService'
 
@@ -13,6 +14,8 @@ export default function AddUpdateEmployeeForm(props: IAddUpdateEmployeeForm) {
   const [designation, setDesignation] = React.useState<string>(props.objEmployee?.Designation || '')
   const [salary, setSalary] = React.useState<string>(props.objEmployee?.Salary.toString() || '')
   const [isActive, setIsActive] = React.useState<boolean>(!!props.objEmployee?.IsActive)
+
+  const navigate = useNavigate()
 
   console.log(props.objEmployee, "employee")
 
@@ -31,7 +34,7 @@ export default function AddUpdateEmployeeForm(props: IAddUpdateEmployeeForm) {
 
       EmployeeService.update(props.objEmployee.EmployeeID, objEmployee)
       alert('Successfully updated')
-      props.setCurrentPage(PAGE.TO_DO_LIST)
+      navigate("/toDoList")
     }
     else { // Add case
       let objEmployee: IEmployee = {
@@ -44,7 +47,7 @@ export default function AddUpdateEmployeeForm(props: IAddUpdateEmployeeForm) {
 
       EmployeeService.add(objEmployee)
       alert('Successfully added')
-      props.setCurrentPage(PAGE.TO_DO_LIST)
+      navigate("/toDoList")
     }
 
 

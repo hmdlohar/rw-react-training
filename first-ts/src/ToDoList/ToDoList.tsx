@@ -13,6 +13,7 @@ import { Box } from '@mui/system';
 import { PAGE } from '../App';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useNavigate } from 'react-router';
 
 interface IToDoList {
     setCurrentPage: (newPageValue: PAGE) => void
@@ -21,6 +22,7 @@ interface IToDoList {
 
 export default function ToDoList(props: IToDoList) {
     const [lstEmployees, setLstEmployee] = React.useState<IEmployee[]>([])
+    const navigate = useNavigate()
     useEffect(() => {
         let lstEmployees = EmployeeService.list()
         setLstEmployee(null as any)
@@ -42,7 +44,7 @@ export default function ToDoList(props: IToDoList) {
 
     function onUpdateClick(objEmployee: IEmployee) {
         props.setCurrentEmployee(objEmployee)
-        props.setCurrentPage(PAGE.ADD_EMPLOYEE)
+        navigate("/addEmployee")
     }
 
     function getData() {
@@ -60,7 +62,7 @@ export default function ToDoList(props: IToDoList) {
                         <Button variant="outlined" color="secondary"
                             onClick={() => {
                                 props.setCurrentEmployee(null)
-                                props.setCurrentPage(PAGE.ADD_EMPLOYEE)
+                                navigate("/addEmployee")
                             }}
                         >Add New Employee</Button>
                     </Box>

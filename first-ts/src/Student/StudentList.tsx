@@ -12,8 +12,9 @@ import { Box } from '@mui/system';
 import { PAGE } from '../App';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { IStudent } from './StudentService';
+import StudentService, { IStudent } from './StudentService';
 import * as $ from 'jquery'
+import { useNavigate } from 'react-router';
 
 interface IStudentList {
   setCurrentPage: (newPage: PAGE) => void
@@ -21,39 +22,39 @@ interface IStudentList {
 
 export default function StudentList(props: IStudentList) {
   const [lstStudent, setLstStudent] = React.useState<IStudent[]>([])
-  useEffect(() => {
-    
-    $.ajax({
-      url: "http://localhost:1337/api/students",
-      success: (result) => {
-        console.log(result, "assign it to list")
-        setLstStudent(result.data)
-      },
-      error: (error) => {
-        console.log('error', error)
-      }
-    })
+  const navigate = useNavigate()
 
+  async function laodData() {
+    try {
+      const lstStudent = await StudentService.list()
+      setLstStudent(lstStudent)
+    }
+    catch (ex) {
+      console.log("ex", ex)
+    }
 
-  }, [])
-
-  function onDeleteClick(EmployeeID: number) {
-    // try {
-    //     if (!window.confirm("Do you want to delete?")) {
-    //         return;
-    //     }
-    //     EmployeeService.delete(EmployeeID)
-    //     alert("Successfully deleted")
-    //     setLstEmployee(EmployeeService.list())
-    // }
-    // catch (ex: any) {
-    //     alert(ex.message)
-    // }
   }
 
-  function onUpdateClick(objEmployee: IStudent) {
-    // props.setCurrentEmployee(objEmployee)
-    // props.setCurrentPage(PAGE.ADD_EMPLOYEE)
+  useEffect(() => {
+    laodData()
+  }, [])
+
+  function onDeleteClick(id: number) {
+    try {
+        if (!window.confirm("Do you want to delete?")) {
+            return;
+        }
+        StudentService.delete(id)
+        alert("Successfully deleted")
+        laodData()
+    }
+    catch (ex: any) {
+        alert(ex.message)
+    }
+  }
+
+  function onUpdateClick(objStudent: IStudent) {
+    navigate(`/addStudent/${objStudent.id}`)
   }
   return (
     <Container>
@@ -62,7 +63,7 @@ export default function StudentList(props: IStudentList) {
           <Box style={{ textAlign: 'right' }}>
             <Button variant="outlined" color="secondary"
               onClick={() => {
-                // props.setCurrentPage(PAGE.ADD_EMPLOYEE)
+                navigate("/addStudent/new")
               }}
             >New Student</Button>
           </Box>

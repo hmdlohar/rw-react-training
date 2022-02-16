@@ -8,6 +8,8 @@ import ToDoList from './ToDoList/ToDoList';
 import AddUpdateEmployeeForm from './ToDoList/AddUpdateEmployeeForm';
 import { IEmployee } from './ToDoList/EmployeeService';
 import Student from './Student/StudentList';
+import { Route, Routes, useNavigate } from 'react-router';
+import AddUpdateStudent from './Student/AddUpdateStudent';
 
 export enum PAGE {
   HOME = "HOME",
@@ -21,6 +23,7 @@ function App() {
   const theme = useTheme()
   const [currentPage, setCurrentPage] = React.useState<PAGE>(PAGE.HOME)
   const [currentEmployee, setCurrentEmployee] = React.useState<IEmployee | null>(null)
+  const navigate = useNavigate()
 
   return (
     <div style={{ backgroundColor: theme.palette.primary.light, height: '100vh' }}>
@@ -35,32 +38,36 @@ function App() {
               {/* <Link to="/">Home</Link> |{" "}
               <Link to="/login">Login</Link> */}
               <Button color="inherit" onClick={() => {
-                setCurrentPage(PAGE.HOME)
+                navigate("/")
               }}>Home</Button>
               <Button color="inherit" onClick={() => {
-                setCurrentPage(PAGE.LOGIN)
+                navigate("/login")
               }}>Login</Button>
               <Button color="inherit" onClick={() => {
-                setCurrentPage(PAGE.TO_DO_LIST)
+                navigate("/toDoList")
               }}>To Do List</Button>
               <Button color="inherit" onClick={() => {
-                setCurrentPage(PAGE.STUDENT_LIST)
+                navigate("/students")
               }}>Student List</Button>
             </div>
           </Stack>
         </Toolbar>
       </AppBar>
       <Container>
-        {/* <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-        </Routes> */}
+          <Route path="/toDoList" element={<ToDoList setCurrentEmployee={setCurrentEmployee} setCurrentPage={setCurrentPage} />} />
+          <Route path="/addEmployee" element={<AddUpdateEmployeeForm objEmployee={currentEmployee} setCurrentPage={setCurrentPage} />} />
+          <Route path="/students" element={<Student setCurrentPage={setCurrentPage} />} />
+          <Route path="/addStudent/:id" element={<AddUpdateStudent />} />
+        </Routes>
 
-        {currentPage === PAGE.HOME && <Home />}
+        {/* {currentPage === PAGE.HOME && <Home />}
         {currentPage === PAGE.LOGIN && <Login />}
         {currentPage === PAGE.TO_DO_LIST && <ToDoList setCurrentEmployee={setCurrentEmployee} setCurrentPage={setCurrentPage} />}
         {currentPage === PAGE.ADD_EMPLOYEE && <AddUpdateEmployeeForm objEmployee={currentEmployee} setCurrentPage={setCurrentPage} />}
-        {currentPage === PAGE.STUDENT_LIST && <Student setCurrentPage={setCurrentPage} />}
+        {currentPage === PAGE.STUDENT_LIST && <Student setCurrentPage={setCurrentPage} />} */}
 
       </Container>
     </div>
