@@ -13,7 +13,6 @@ import { PAGE } from '../App';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import StudentService, { IStudent } from './StudentService';
-import * as $ from 'jquery'
 import { useNavigate } from 'react-router';
 
 interface IStudentList {

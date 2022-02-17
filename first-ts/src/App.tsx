@@ -10,6 +10,8 @@ import { IEmployee } from './ToDoList/EmployeeService';
 import Student from './Student/StudentList';
 import { Route, Routes, useNavigate } from 'react-router';
 import AddUpdateStudent from './Student/AddUpdateStudent';
+import AddUpdateStudent2 from './Student2/AddUpdateStudent2';
+import StudentList2 from './Student2/StudentList2';
 
 export enum PAGE {
   HOME = "HOME",
@@ -49,6 +51,9 @@ function App() {
               <Button color="inherit" onClick={() => {
                 navigate("/students")
               }}>Student List</Button>
+              <Button color="inherit" onClick={() => {
+                navigate("/students2")
+              }}>Student 2</Button>
             </div>
           </Stack>
         </Toolbar>
@@ -61,6 +66,9 @@ function App() {
           <Route path="/addEmployee" element={<AddUpdateEmployeeForm objEmployee={currentEmployee} setCurrentPage={setCurrentPage} />} />
           <Route path="/students" element={<Student setCurrentPage={setCurrentPage} />} />
           <Route path="/addStudent/:id" element={<AddUpdateStudent />} />
+
+          <Route path="/students2" element={<StudentList2 setCurrentPage={setCurrentPage} />} />
+          <Route path="/students2/:id" element={<AddUpdateStudent2 />} />
         </Routes>
 
         {/* {currentPage === PAGE.HOME && <Home />}

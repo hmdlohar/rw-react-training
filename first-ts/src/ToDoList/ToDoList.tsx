@@ -24,8 +24,8 @@ export default function ToDoList(props: IToDoList) {
     const [lstEmployees, setLstEmployee] = React.useState<IEmployee[]>([])
     const navigate = useNavigate()
     useEffect(() => {
-        let lstEmployees = EmployeeService.list()
-        setLstEmployee(null as any)
+        // let lstEmployees = EmployeeService.list()
+        // setLstEmployee(null as any)
     }, [])
 
     function onDeleteClick(EmployeeID: number) {
