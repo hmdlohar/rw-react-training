@@ -3,6 +3,8 @@ import AppRoutes from './Main/AppRoutes';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './Main/theme';
+import { store } from './redux/store';
+import { Provider as ReduxProvider } from "react-redux";
 
 const values = {
   isMenuOpen: false,
@@ -26,10 +28,12 @@ function App() {
       isMenuOpen,
       setMenuOpen
     }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppRoutes />
-      </ThemeProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <AppRoutes />
+        </ThemeProvider>
+      </ReduxProvider>
     </AppContext.Provider>
   );
 }

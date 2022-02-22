@@ -3,12 +3,19 @@ import React from 'react'
 import SideBar from './SideBar'
 import TopBar from './TopBar'
 
-export default function MainLayout(props: any) {
+interface IMainLayout {
+    children: any
+    hideTopBar?: boolean
+}
+
+export default function MainLayout(props: IMainLayout) {
     return (
         <div>
-            <Box sx={{ height: '10vh' }}>
-                <TopBar />
-            </Box>
+            {!props.hideTopBar &&
+                <Box sx={{ height: '10vh' }}>
+                    <TopBar />
+                </Box>
+            }
             <SideBar />
             <Box sx={{ height: '90vh' }}>
                 {props.children}

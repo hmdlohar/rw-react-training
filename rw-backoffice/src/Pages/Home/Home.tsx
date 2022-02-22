@@ -1,18 +1,20 @@
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import React from 'react'
 import MainLayout from '../../Main/MainLayout'
 import { useAppContext } from '../../App'
+import { RootState, useSelector } from '../../redux/store'
 
 
 export default function Home() {
-    const context = useAppContext()
+    const { user } = useSelector((state: RootState) => state.common)
     return (
         <MainLayout>
-            <Button onClick={() => {
-                context.setMenuOpen(true)
-            }}>
-                Open Menu
-            </Button>
+            {user &&
+                <>
+                    <Typography>Name: {user.firstName} {user.lastName}</Typography>
+                    <Typography>Email: {user.email}</Typography>
+                </>
+            }
         </MainLayout>
     )
 }

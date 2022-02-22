@@ -7,13 +7,15 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import config from '../config';
 import { useAppContext } from '../App';
+import { setMenuOpen } from '../redux/slices/common';
+import { dispatch } from '../redux/store';
 
 interface ITopBar {
-    
+
 }
 
 export default function TopBar(props: ITopBar) {
-    const { setMenuOpen } = useAppContext()
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -25,7 +27,7 @@ export default function TopBar(props: ITopBar) {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                         onClick={() => {
-                            setMenuOpen(true)
+                            dispatch(setMenuOpen(true))
                         }}
                     >
                         <MenuIcon />

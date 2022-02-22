@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import { useAppContext } from '../App';
+import { useSelector } from 'react-redux';
+import { dispatch, RootState } from '../redux/store';
+import { setMenuOpen } from '../redux/slices/common';
 
 
 interface ISideBar {
@@ -32,18 +35,18 @@ const lstMenu = [
 
 export default function SideBar(props: ISideBar) {
     const navigate = useNavigate()
-    const context = useAppContext()
+    const { isMenuOpen } = useSelector((state: RootState) => state.common)
 
     return (
         <SwipeableDrawer
-            open={context.isMenuOpen}
+            open={isMenuOpen}
             onClose={() => {
                 console.log("on close")
-                context.setMenuOpen(false)
+                dispatch(setMenuOpen(false))
             }}
             onOpen={() => {
                 console.log("on Open")
-                context.setMenuOpen(true)
+                dispatch(setMenuOpen(false))
             }}
         >
             <Box sx={{ width: 250 }}>
@@ -52,7 +55,7 @@ export default function SideBar(props: ISideBar) {
                         return (
                             <ListItem key={index} button divider onClick={() => {
                                 navigate(item.path)
-                                context.setMenuOpen(false)
+                                dispatch(setMenuOpen(false))
                             }}>
                                 <ListItemIcon>
                                     {item.icon}
