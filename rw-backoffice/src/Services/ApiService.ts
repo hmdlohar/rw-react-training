@@ -1,16 +1,28 @@
+import Config from "../config";
+import { IDashboardStats } from "../types/AllTypes";
+import { ICompany } from "../types/Companies";
+import http from "./HttpService";
+import lsu from "./LocalStorageUtils";
+
 class ApiServices {
     async login(username: string, password: string) {
-        await new Promise(resolve => setTimeout(resolve, 3000))
-        if (username === "admin" && password === "admin") {
-            return {
-                firstName: "Hamid",
-                lastName: "Lohar",
-                email: "hmdlohar@gmail.com",
-                id: 1
-            }
-        }
+        let response = await http.post(`${Config.API_URL}/api/public/login/admin`, {
+            username,
+            password
+        })
+        return response.data;
+    }
 
-        throw new Error('Invalid credentials.')
+    async getCompanyDashboard(): Promise<IDashboardStats> {
+        let response = await http.get(`${Config.API_URL}/api/admin/company/dashboard`,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async getCompanies(): Promise<ICompany[]> {
+        let response = await http.get(`${Config.API_URL}/api/admin/company`,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
     }
 }
 

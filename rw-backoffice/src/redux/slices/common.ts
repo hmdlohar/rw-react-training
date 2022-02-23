@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import api from "../../Services/ApiService";
+import lsu from "../../Services/LocalStorageUtils";
 import { IUser } from "../../types/User";
 import { RootState } from "../store";
 
@@ -45,8 +46,9 @@ export const login = (username: string, password: string) => {
     return async (dispatch: any, getState: () => RootState) => {
         try {
             dispatch(slice.actions.setLoading(true))
-            let user = await api.login(username, password)
-            dispatch(slice.actions.loginSuccess(user))
+            let data = await api.login(username, password)
+            lsu.lsSet('token', data.token)
+            dispatch(slice.actions.loginSuccess(data.userData))
         }
         catch (ex) {
             console.log(ex)

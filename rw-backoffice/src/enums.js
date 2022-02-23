@@ -1,0 +1,14 @@
+module.exports = {
+  ACCOUNT_TYPE: {
+    PERSONAL: "PERSONAL",
+    PNL: "PNL",
+    REAL: "REAL",
+  },
+
+  USER_ROLE: {
+    COMPANY_ADMIN: "COMPANY_ADMIN",
+    OPERATOR: "OPERATOR",
+    SALES_PERSON: "SALES_PERSON",
+    AUDITOR: "AUDITOR",
+  },
+}

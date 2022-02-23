@@ -1,3 +1,4 @@
+import { Container } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import SideBar from './SideBar'
@@ -18,7 +19,9 @@ export default function MainLayout(props: IMainLayout) {
             }
             <SideBar />
             <Box sx={{ height: '90vh' }}>
-                {props.children}
+                <Container>
+                    {props.children}
+                </Container>
             </Box>
         </div>
     )

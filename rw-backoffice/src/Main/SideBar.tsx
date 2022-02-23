@@ -5,10 +5,10 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import { useNavigate } from 'react-router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
-import { useAppContext } from '../App';
 import { useSelector } from 'react-redux';
 import { dispatch, RootState } from '../redux/store';
 import { setMenuOpen } from '../redux/slices/common';
+import lsu from '../Services/LocalStorageUtils';
 
 
 interface ISideBar {
@@ -22,14 +22,23 @@ const lstMenu = [
         path: "/"
     },
     {
-        title: "Login",
+        title: "Users",
         icon: <AccountCircleIcon />,
-        path: "/login"
+        path: "/users"
     },
     {
-        title: "Index",
+        title: "Companies",
         icon: <InboxIcon />,
-        path: "/inbox"
+        path: "/companies"
+    },
+    {
+        title: "Logout",
+        icon: <AccountCircleIcon />,
+        path: "",
+        onClick: () => {
+            lsu.lsDelete("token")
+            window.location.replace("/")
+        }
     },
 ]
 
@@ -54,7 +63,12 @@ export default function SideBar(props: ISideBar) {
                     {lstMenu.map((item, index) => {
                         return (
                             <ListItem key={index} button divider onClick={() => {
-                                navigate(item.path)
+                                if (item.onClick) {
+                                    item.onClick()
+                                }
+                                else {
+                                    navigate(item.path)
+                                }
                                 dispatch(setMenuOpen(false))
                             }}>
                                 <ListItemIcon>
