@@ -44,7 +44,11 @@ export default function DashboardStatsGrid({ objDashboard }: { objDashboard: IDa
                     background: 'rgb(200, 250, 205)',
                     p: 1,
                     borderRadius: 5
-                }}>
+                }}
+                    onClick={() => {
+                        navigate("/users")
+                    }}
+                >
                     <Avatar sx={theme => ({
                         background: 'transparent',
                         border: `2px solid ${theme.palette.primary.main}`,
