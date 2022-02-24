@@ -6,3 +6,10 @@ export interface IUser {
     name: string
     createdAt: string
 }
+
+export class UserInsertObject {
+    username: string = ""
+    password?: string
+    name: string = ""
+    _id?: string
+}

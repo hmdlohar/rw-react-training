@@ -717,7 +717,7 @@ export class UtilsService {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     var colour = '#';
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       var value = (hash >> (i * 8)) & 0xFF;
       colour += ('00' + value.toString(16)).substr(-2);
     }

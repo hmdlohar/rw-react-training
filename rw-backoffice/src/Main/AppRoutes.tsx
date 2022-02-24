@@ -9,6 +9,7 @@ import lsu from '../Services/LocalStorageUtils';
 import Companies from '../Pages/Companies/Companies';
 import Packages from '../Pages/Packages/Packages';
 import Users from '../Pages/Users/Users';
+import AddUpdateUser from '../Pages/Users/AddUpdateUser';
 
 export default function AppRoutes() {
     const { user } = useSelector((state: RootState) => state.common)
@@ -17,8 +18,7 @@ export default function AppRoutes() {
     useEffect(() => {
         if (!lsu.lsGet("token"))
             navigate("/login")
-        else
-            navigate("/")
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
@@ -30,6 +30,7 @@ export default function AppRoutes() {
                 <Route path="/companies" element={<Companies />} />
                 <Route path="/packages" element={<Packages />} />
                 <Route path="/users" element={<Users />} />
+                <Route path="/users/:id" element={<AddUpdateUser />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

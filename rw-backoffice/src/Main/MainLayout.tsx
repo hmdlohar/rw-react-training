@@ -19,7 +19,7 @@ export default function MainLayout(props: IMainLayout) {
             }
             <SideBar />
             <Box sx={{ height: '90vh' }}>
-                <Container>
+                <Container sx={{ height: '100%' }}>
                     {props.children}
                 </Container>
             </Box>

@@ -2,7 +2,7 @@ import Config from "../config";
 import { IDashboardStats } from "../types/AllTypes";
 import { ICompany } from "../types/Companies";
 import { IPackage } from "../types/Packages";
-import { IUser } from "../types/User";
+import { IUser, UserInsertObject } from "../types/User";
 import http from "./HttpService";
 import lsu from "./LocalStorageUtils";
 
@@ -29,12 +29,29 @@ class ApiServices {
 
     async getPackages(): Promise<IPackage[]> {
         let response = await http.get(`${Config.API_URL}/api/admin/packages`,
-        { Authorization: lsu.lsGet("token") })
+            { Authorization: lsu.lsGet("token") })
         return response.data;
     }
-    
-    async getUsers(): Promise<[IUser[]]> {
+
+    async getUsers(): Promise<IUser[]> {
         let response = await http.get(`${Config.API_URL}/api/admin/users`,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async addUser(io: UserInsertObject): Promise<IUser> {
+        let response = await http.post(`${Config.API_URL}/api/admin/users`, io,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async editUser(io: UserInsertObject): Promise<IUser> {
+        let response = await http.put(`${Config.API_URL}/api/admin/users`, io,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+    async deleteUser(_id: string): Promise<IUser> {
+        let response = await http.delete(`${Config.API_URL}/api/admin/users`, { _id },
             { Authorization: lsu.lsGet("token") })
         return response.data;
     }

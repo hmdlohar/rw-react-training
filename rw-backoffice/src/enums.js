@@ -11,4 +11,10 @@ module.exports = {
     SALES_PERSON: "SALES_PERSON",
     AUDITOR: "AUDITOR",
   },
+  ALERT_TYPE: {
+    SUCCESS: "SUCCESS",
+    ERROR: "ERROR",
+    INFO: "INFO",
+    WARNING: "WARNING",
+  }
 }

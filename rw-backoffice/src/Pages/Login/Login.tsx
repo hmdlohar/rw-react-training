@@ -4,16 +4,18 @@ import MainLayout from '../../Main/MainLayout'
 import { login } from '../../redux/slices/common'
 import { dispatch, RootState, useSelector } from '../../redux/store'
 import { LoadingButton } from "@mui/lab";
+import { Navigate, useNavigate } from 'react-router'
 
 export default function Login() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
+    const navigate = useNavigate()
 
     const { isLoading, error } = useSelector((state: RootState) => state.common)
 
-    function onSubmit() {
-        console.log(username, password)
-        dispatch(login(username, password))
+    async function onSubmit() {
+        await dispatch(login(username, password))
+        navigate("/")
     }
 
     return (
