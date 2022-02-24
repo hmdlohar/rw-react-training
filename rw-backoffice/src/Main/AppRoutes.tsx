@@ -7,6 +7,7 @@ import Login from '../Pages/Login/Login';
 import { RootState, useSelector } from '../redux/store';
 import lsu from '../Services/LocalStorageUtils';
 import Companies from '../Pages/Companies/Companies';
+import Packages from '../Pages/Packages/Packages';
 
 export default function AppRoutes() {
     const { user } = useSelector((state: RootState) => state.common)
@@ -26,6 +27,7 @@ export default function AppRoutes() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/companies" element={<Companies />} />
+                <Route path="/packages" element={<Packages />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </>

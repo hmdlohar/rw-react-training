@@ -1,6 +1,7 @@
 import Config from "../config";
 import { IDashboardStats } from "../types/AllTypes";
 import { ICompany } from "../types/Companies";
+import { IPackage } from "../types/Packages";
 import http from "./HttpService";
 import lsu from "./LocalStorageUtils";
 
@@ -21,6 +22,12 @@ class ApiServices {
 
     async getCompanies(): Promise<ICompany[]> {
         let response = await http.get(`${Config.API_URL}/api/admin/company`,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async getPackages(): Promise<IPackage[]> {
+        let response = await http.get(`${Config.API_URL}/api/admin/packages`,
             { Authorization: lsu.lsGet("token") })
         return response.data;
     }

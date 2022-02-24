@@ -5,6 +5,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import { useNavigate } from 'react-router';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 import { useSelector } from 'react-redux';
 import { dispatch, RootState } from '../redux/store';
 import { setMenuOpen } from '../redux/slices/common';
@@ -25,6 +26,11 @@ const lstMenu = [
         title: "Users",
         icon: <AccountCircleIcon />,
         path: "/users"
+    },
+    {
+        title: "Packages",
+        icon: <Inventory2Icon />,
+        path: "/packages"
     },
     {
         title: "Companies",
