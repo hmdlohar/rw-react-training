@@ -9,16 +9,38 @@ import AddIcon from '@mui/icons-material/Add';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import AddCompany from './AddCompany'
+import api from '../../Services/ApiService'
+import UpdateCompany from './UpdateCompany'
+import { ICompany } from '../../types/Companies'
 
 
 export default function Companies() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const { lstCompanies, isLoading, error } = useSelector((state: RootState) => state.companies)
+    const [isAddOpen, setIsAddOpen] = React.useState<boolean>(false)
+    const [isUpdateOpen, setIsUpdateOpen] = React.useState<boolean>(false)
+    const [currentCompany, setCurrentCompany] = React.useState<ICompany | null>(null)
 
     useEffect(() => {
         if (!lstCompanies)
             dispatch(getCompanies())
     }, [lstCompanies])
+
+
+    async function onDelete(id: string) {
+        try {
+            let yes = await utils.showConfirm("Do you want to delete?")
+            if (!yes) return
+            await api.deleteCompany(id)
+            utils.showSuccess("Company Deleted successfully. ")
+            dispatch(getCompanies())
+        }
+        catch (ex) {
+            utils.showError(ex)
+        }
+    }
+
 
     return (
         <MainLayout>
@@ -53,8 +75,10 @@ export default function Companies() {
                                         />
                                         <ListItemSecondaryAction>
                                             <IconButton
+                                                data-id={objCompany.id}
                                                 onClick={(event) => {
                                                     setAnchorEl(event.currentTarget);
+                                                    setCurrentCompany(objCompany)
                                                 }}
                                             >
                                                 <MoreVertIcon />
@@ -71,6 +95,9 @@ export default function Companies() {
                 bottom: 16,
                 right: 16,
             }} color="primary"
+                onClick={() => {
+                    setIsAddOpen(true)
+                }}
             >
                 <AddIcon />
             </Fab>
@@ -86,13 +113,49 @@ export default function Companies() {
                 onClose={() => setAnchorEl(null)}
 
             >
-                <MenuItem onClick={() => setAnchorEl(null)}>
+                <MenuItem onClick={() => {
+                    setIsUpdateOpen(true)
+                    setAnchorEl(null)
+                }}>
                     Edit
                 </MenuItem>
-                <MenuItem onClick={() => setAnchorEl(null)}>
+                <MenuItem onClick={() => {
+                    let id = (anchorEl?.getAttribute("data-id"))
+                    if (id)
+                        onDelete(id)
+                    setAnchorEl(null)
+                }}>
                     Delete
                 </MenuItem>
             </Menu>
+
+            <AddCompany
+                open={isAddOpen}
+                toggle={() => {
+                    setIsAddOpen(!isAddOpen)
+                }}
+                onComplete={() => {
+                    dispatch(getCompanies())
+                    setIsAddOpen(false)
+                }}
+            />
+
+            {(currentCompany && isUpdateOpen) &&
+                <UpdateCompany
+                    open={isUpdateOpen}
+                    toggle={() => {
+                        setIsUpdateOpen(!isUpdateOpen)
+                        if (isUpdateOpen)
+                            setCurrentCompany(null)
+                    }}
+                    onComplete={() => {
+                        dispatch(getCompanies())
+                        setIsUpdateOpen(false)
+                        setCurrentCompany(null)
+                    }}
+                    objCompany={currentCompany}
+                />
+            }
         </MainLayout >
     )
 }

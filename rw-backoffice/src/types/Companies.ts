@@ -46,3 +46,41 @@ export interface ICompanySubscription {
     "activateDate": string
     "expiresAt": string
 }
+
+export class CompanyAddInsertObject {
+    "username": string
+    "password": string
+    "name": string
+    "invoicePrefix": string
+    "companyName": string
+    "state": string
+    "address": string
+    "companyEmail": string
+    "companyPhone": string
+    "gstNo": string
+    "package": string
+}
+
+export class CompanyUpdateInsertObject {
+    "id": number
+    "invoicePrefix"?: string
+    "currentInvoiceNumber"?: number
+    "currentDNNumber"?: number
+    "currentCNNumber"?: number
+    "defaultInvoiceTemplate"?: string
+    "showAdvanceMenu"?: boolean
+    "sendSmsToCustomerOnSales"?: boolean
+    "sendSmsToOwnerOnSales"?: boolean
+    "sendSMSToSelfOnDueDate"?: boolean
+    "sendSMSToSelfOnPurchaseDueDate"?: boolean
+    "sendEmailToCustomerOnSales"?: boolean
+    "sendSMSToCustomerOnDueDate"?: boolean
+    "showItemSerialNo"?: boolean
+    "companyName"?: string
+    "state"?: string
+    "address"?: string
+    "companyEmail"?: string
+    "companyPhone"?: string
+    "gstNo"?: string
+
+}

@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import config from '../config';
-import { useAppContext } from '../App';
 import { setMenuOpen } from '../redux/slices/common';
 import { dispatch } from '../redux/store';
 

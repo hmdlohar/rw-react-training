@@ -15,6 +15,12 @@ export const theme = createTheme({
                 variant: "contained",
             },
         },
+        MuiTextField: {
+            defaultProps: {
+                fullWidth: true,
+                size: "small"
+            }
+        },
         //@ts-ignore
         MuiLoadingButton: {
             // styleOverrides: {

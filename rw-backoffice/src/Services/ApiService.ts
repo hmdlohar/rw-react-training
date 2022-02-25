@@ -1,6 +1,6 @@
 import Config from "../config";
 import { IDashboardStats } from "../types/AllTypes";
-import { ICompany } from "../types/Companies";
+import { CompanyAddInsertObject, CompanyUpdateInsertObject, ICompany } from "../types/Companies";
 import { IPackage } from "../types/Packages";
 import { IUser, UserInsertObject } from "../types/User";
 import http from "./HttpService";
@@ -23,6 +23,23 @@ class ApiServices {
 
     async getCompanies(): Promise<ICompany[]> {
         let response = await http.get(`${Config.API_URL}/api/admin/company`,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async addCompany(io: CompanyAddInsertObject): Promise<any> {
+        let response = await http.post(`${Config.API_URL}/api/admin/company`, io,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+
+    async editCompany(io: CompanyUpdateInsertObject): Promise<any> {
+        let response = await http.put(`${Config.API_URL}/api/admin/company`, io,
+            { Authorization: lsu.lsGet("token") })
+        return response.data;
+    }
+    async deleteCompany(id: string): Promise<ICompany> {
+        let response = await http.delete(`${Config.API_URL}/api/admin/company`, { id },
             { Authorization: lsu.lsGet("token") })
         return response.data;
     }

@@ -1,10 +1,10 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Container, Grid, TextField, Typography } from '@mui/material'
 import React from 'react'
 import MainLayout from '../../Main/MainLayout'
 import { login } from '../../redux/slices/common'
 import { dispatch, RootState, useSelector } from '../../redux/store'
 import { LoadingButton } from "@mui/lab";
-import { Navigate, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 export default function Login() {
     const [username, setUsername] = React.useState<string>('')
